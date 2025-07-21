@@ -39,7 +39,7 @@ const social = [
   },
   {
     name: "X",
-    icon: "X",
+    icon: "x",
     link: "https://x.com/aymane_praxe",
   },
   {
