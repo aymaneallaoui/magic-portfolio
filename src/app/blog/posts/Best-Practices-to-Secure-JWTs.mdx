@@ -1,0 +1,146 @@
+---
+title: "Best Practices to Secure JWTs"
+summary: "Learn how to properly secure JSON Web Tokens in your web applications using Node.js."
+image: "/images/og/jwt-security.png"
+publishedAt: "2025-05-30"
+tag: "Security"
+---
+
+# Ensuring JWT Security in Web Applications
+
+Ensuring user authentication and protecting an on-going session are vital parts of modern web development. Among the many options for managing authentication and authorization in web applications, JSON Web Tokens (JWTs) have become popular due to their simplicity, efficiency and flexibility. However, just like any other technology, JWTs have their own security considerations. In this article we will explore how to effectively secure JWTs by discussing the best practices.
+
+## Understanding JWTs
+
+Let’s quickly recap what JWTs are and how they work before delving into security measures. They are concise self-contained tokens that consist of three components – header, payload and signature. Generally these tokens are employed for the purposes of authentication or information exchange between parties. After a user has successfully logged in, a new JWT is issued; it then gets sent back to the client who will include it in subsequent requests thus authenticating them.
+
+## Best Practices for Securing JWTs
+
+<Text>
+  <strong>Use HTTPS:</strong> This will always guarantee that JWTs which are
+  transmitted are encrypted on the move and hence there is no eavesdropping or
+  man-in-the-middle attack. When HTTP is employed, JWTs become an easy target to
+  intercept and therefore your system becomes insecure.
+</Text>
+
+<Text>
+  <strong>Keep JWTs Stateless:</strong> As opposed to keeping server’s
+  database/session storage with sensitive data/state of sessions, you need to
+  know these tokens are created for being stateless. This way the application
+  can get better scalability and reduce cases of data breaches.
+</Text>
+
+<Text>
+  <strong>Implement Proper Token Expiry:</strong> JWTs should have a reasonable
+  expiration time so that they won’t last long thus giving hacker a little time
+  window. Shorter token expiration times make it hard for hackers who may steal
+  them leading to unauthorized access.
+</Text>
+
+<Text>
+  <strong>Use Strong and Unique Keys:</strong> CRT algorithms like RSA with
+  adequate key length or HMAC SHA-256 are recommended when signing JWTs.
+  Besides, each JWT must always be signed using a unique key to eliminate
+  substitution attacks on tokens.
+</Text>
+
+<Text>
+  <strong>Validate JWT Signatures:</strong> Validation must be done in order to
+  confirm whether incoming JWTs were signed by its author or not. Such omissions
+  will lead you into accepting forged or tampered tokens while threatening your
+  security.
+</Text>
+
+<Text>
+  <strong>Token Revocation:</strong> A blacklist or revocation list should be
+  maintained in order to invalidate JWTs where token revocation is necessary
+  i.e. when a user logs out or an account is suspended. This makes it impossible
+  for users to use tokens that may have been compromised or are no longer
+  current to access protected resources.
+</Text>
+
+<Text>
+  <strong>Do Not Store Sensitive Data:</strong> Do not put sensitive information
+  which include passwords or personally identifiable data (PII) in the JWT
+  payload; instead, securely store such data on the server and just include a
+  reference or identifier in the token.
+</Text>
+
+<Text>
+  <strong>Rate Limiting and Throttling:</strong> To protect your authentication
+  endpoints from brute force attacks and denial-of-service (DoS) attacks, rate
+  limiting and throttling mechanisms must be implemented. This will prevent
+  malicious actors from bombarding the server with too many authentication
+  requests.
+</Text>
+
+## Code Examples
+
+To bring out these best practices, we will walk through some basic code example using <SmartLink href="https://www.npmjs.com/package/jsonwebtoken">jsonwebtoken</SmartLink> and <SmartLink href="https://nodejs.org/en">Node.js</SmartLink>.
+
+<CodeBlock
+  codes={[
+    {
+      language: "js",
+      label: "Secure JWT Example",
+      code: `const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
+/* use a secure secret key at least 32 characters long eg '9wJMN71@Dx5#p%bTqY!6Rs*eK$A&zP2H' \*/
+
+const secretKey = process.env.JWT_SECRET;
+
+const createToken = (payload) => {
+try {
+const token = jwt.sign(payload, secretKey, { expiresIn: '1h' });
+return token;
+} catch (error) {
+console.error('Error creating JWT:', error.message);
+return null;
+}
+};
+
+const verifyToken = (token) => {
+try {
+const decoded = jwt.verify(token, secretKey);
+return decoded;
+} catch (error) {
+console.error('Error verifying JWT:', error.message);
+return null;
+}
+};
+
+const payload = { user_id: 123456 };
+const token = createToken(payload);
+if (token) {
+console.log('JWT created successfully:', token);
+
+const decoded = verifyToken(token);
+if (decoded) {
+console.log('JWT verified successfully. Decoded payload:', decoded);
+} else {
+console.log('JWT verification failed.');
+}
+}`,
+},
+]}
+/>
+
+## Conclusion
+
+<Text>
+  To effectively secure JWTs, one must have a full understanding of how they
+  function and the various weaknesses that could be attacked. Comply with
+  recommendations such as utilizing HTTPS, enforcing token expiration times and
+  using strong cryptographic implementations; these steps will improve the
+  security of your web apps thus ensuring protection for confidential user
+  information.
+</Text>
+
+<Text>
+  Always remember that it is an evolving process so you should constantly audit
+  and change your JWT based security strategies according to current threats or
+  best practice. With this kind of behavior that protects against JWT dangers,
+  you can minimize potential hazards and develop confidence within your client
+  base.
+</Text>

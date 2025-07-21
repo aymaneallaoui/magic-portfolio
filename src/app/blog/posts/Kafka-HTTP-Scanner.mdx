@@ -1,0 +1,295 @@
+---
+title: "Kafka HTTP Scanner: Building a Go-Powered Security Tool"
+summary: "How a weekend challenge turned into a full-blown modular, concurrent, and raw-powered HTTP vulnerability scanner in Go."
+image: "/images/og/kafka-http-scanner.png"
+publishedAt: "2025-07-20"
+tag: "Security"
+---
+
+# Hello everyone, I'm glad to see you
+
+Today, I want to share my new experience with building **[Kafka HTTP Scanner](https://github.com/aymaneallaoui/kafka-http-scanner)**, an **HTTP vulnerability scanner** that is fully developed in **Go**.
+
+<Text>
+  Initially, a <strong>security testing weekend challenge</strong> turned out to
+  be a complete <strong>Command Line Interface Tool</strong> (lmao), something I
+  am (half) proud to say I <strong>created</strong>.
+</Text>
+
+---
+
+## 🔍 Why Another Security Scanner?
+
+With the rapid development of IT technology, we are surrounded by multiple security tools, so I ask myself and you: **"Why?"**
+
+<Text>
+  I have two answers:
+  <ul>
+    <li>
+      <strong>An opportunity to learn</strong> – I wanted to strengthen my
+      understanding of <strong>Web security vulnerabilities</strong> as well as
+      develop my competency in <strong>Go</strong>.
+    </li>
+    <li>
+      <strong>Flexibility</strong> – I needed a tool that could be{" "}
+      <strong>tailored for specific needs</strong> without going through
+      over-complicated <strong>enterprise-grade tools</strong>.
+    </li>
+  </ul>
+  Moreover, let us refuse to lie to one another,{" "}
+  <strong>
+    building security systems is quite an enjoyable task to partake
+  </strong>
+  .
+</Text>
+
+---
+
+## ⚡ Core Features That Make It Stand Out
+
+<Text>
+  The tool is capable of identifying a{" "}
+  <strong>wide array of threats to security</strong>:
+  <ul>
+    <li>HTTP Request Smuggling</li>
+    <li>SQL Injections</li>
+    <li>Cross-Site Scripting (XSS)</li>
+    <li>CORS Misconfigurations</li>
+    <li>Security Headers Neglection</li>
+    <li>SSL/TLS Vulnerable Areas</li>
+    <li>And plenty more...</li>
+  </ul>
+</Text>
+
+<Text>
+  In addition to detection of vulnerabilities, I wanted it to be:
+  <ul>
+    <li>
+      ✅ <strong>Fast</strong> – Able to scan concurrently (Go’s goroutines
+      served well for this function)
+    </li>
+    <li>
+      ✅ <strong>Modular</strong> – Having an{" "}
+      <strong>easily deployable architecture</strong> to introduce new
+      vulnerability scan checks
+    </li>
+    <li>
+      ✅ <strong>Friendly</strong> – With <strong>detailed instructions</strong>{" "}
+      to fix the problems instead of just the pointers containing the problems
+    </li>
+  </ul>
+</Text>
+
+---
+
+## 🏗️ The Technical Architecture
+
+### Building Blocks
+
+<Text>The project follows a clean, modular structure:</Text>
+
+<CodeBlock
+  codes={[
+    {
+      language: "bash",
+      label: "Project Structure",
+      code: `📂 cmd/              # CLI commands using Cobra
+📂 internal/
+  📂 core/           # Core scanner logic
+  📂 http/           # Custom HTTP client
+  📂 model/          # Data structures
+  📂 modules/        # Vulnerability detection modules
+  📂 output/         # Report formatting
+📂 pkg/utils/        # Utility functions`,
+    },
+  ]}
+/>
+
+### The Module System
+
+<Text>
+  The heart of the scanner is its module system. Each vulnerability check is
+  implemented as a separate module that implements a simple interface:
+</Text>
+
+<CodeBlock
+  codes={[
+    {
+      language: "go",
+      label: "ScanModule Interface",
+      code: `type ScanModule interface {
+  Name() string
+  Description() string
+  Run(scanner Scanner) ([]model.Vulnerability, error)
+}`,
+    },
+  ]}
+/>
+
+<Text>
+  This made it incredibly easy to add new vulnerability checks. Here's a
+  simplified example of the XSS module:
+</Text>
+
+<CodeBlock
+  codes={[
+    {
+      language: "go",
+      label: "XSS Module",
+      code: `func (m *XSSVulnerabilityModule) Run(s Scanner) ([]model.Vulnerability, error) {
+  resp, err := s.SendHTTPRequest("GET", "/?q=<script>alert(1)</script>", nil, nil)
+
+if strings.Contains(bodyStr, "<script>alert(1)</script>") {
+return []model.Vulnerability{{
+      ID:      "XSS-01",
+      Name:    "Reflected Cross-Site Scripting",
+      Severity: model.SeverityHigh,
+      // ...details, remediation info, etc.
+    }}, nil
+}
+
+return nil, nil
+}`,
+},
+]}
+/>
+
+---
+
+## ⚙️ Technical Challenges I Tackled
+
+### 1. HTTP Request Smuggling Detection
+
+<Text>
+  Identifying HTTP request smuggling was surprisingly intricate. I had to design
+  synthetic HTTP requests that had mismatched and contradictory ‘Content-Length’
+  and ‘Transfer-Encoding’ headers, then examine the server’s responses.
+</Text>
+
+<CodeBlock
+  codes={[
+    {
+      language: "go",
+      label: "Raw HTTP Smuggling",
+      code: `func (c *Client) SendRawRequest(target model.Target, payload string) (string, error) {
+  if target.SSL {
+    conn, err = tls.DialWithDialer(dialer, "tcp", address, tlsConfig)
+  } else {
+    conn, err = net.DialTimeout("tcp", address, timeout)
+  }
+
+fmt.Fprintf(conn, payload)
+// Read the raw response
+}`,
+},
+]}
+/>
+
+### 2. Concurrency Control
+
+<CodeBlock
+  codes={[
+    {
+      language: "go",
+      label: "Concurrency with Semaphore",
+      code: `scanner.semaphore = make(chan struct{}, config.Concurrency)
+
+s.semaphore <- struct{}{} // Acquire token
+defer func() { <-s.semaphore }() // Release token`,
+},
+]}
+/>
+
+### 3. Robust Error Handling
+
+<Text>
+  When you're sending malformed requests and probing security boundaries, things
+  break. A lot. Graceful error handling was critical to prevent the scanner from
+  crashing mid-scan:
+</Text>
+
+<CodeBlock
+  codes={[
+    {
+      language: "go",
+      label: "Panic Recovery",
+      code: `go func() {
+  defer func() {
+    if r := recover(); r != nil {
+      s.logger.Errorf("Module %s panicked: %v", m.Name(), r)
+      errorChan <- fmt.Errorf("module %s panicked: %v", m.Name(), r)
+    }
+  }()
+
+vulnerabilities, err := m.Run(s)
+// ...
+}()`,
+},
+]}
+/>
+
+---
+
+## 🔁 Reflections
+
+<Text>
+  I learned much more than I initially planned from this project:
+  <ul>
+    <li>
+      <strong>Security vulnerabilities</strong> are nuanced – detection requires
+      understanding both attack techniques and server-side behavior.
+    </li>
+    <li>
+      <strong>Go's concurrency model</strong> shines – network tools benefit
+      massively from goroutines and channels.
+    </li>
+    <li>
+      <strong>CLI UX matters</strong> – a friendly interface with clean output
+      makes developer tools more usable.
+    </li>
+  </ul>
+</Text>
+
+---
+
+## 🧭 What's Next?
+
+<Text>
+  I have a lot of ideas to work on for Kafka HTTP Scanner:
+  <ul>
+    <li>Active Exploitation Modules (with safeguards)</li>
+    <li>CI/CD integration</li>
+    <li>Custom reporting designs</li>
+    <li>API fuzzing</li>
+  </ul>
+</Text>
+
+---
+
+## 🚀 Try It Out!
+
+<CodeBlock
+  codes={[
+    {
+      language: "bash",
+      label: "Install and Run",
+      code: `git clone https://github.com/aymaneallaoui/kafka-http-scanner.git
+cd kafka-http-scanner
+go build -o httpscan
+
+# Basic scan
+
+./httpscan scan --url https://your-target-site.com`,
+},
+]}
+/>
+
+<Text>
+  Since the tool is open-sourced, feel free to make any changes that fit your
+  requirements. I would gladly welcome any feedback and contributions as well.
+</Text>
+
+<Text>
+  In case you created any security tools using Go, what were some of the
+  obstacles that you had to overcome? Share your thoughts in the comments!
+</Text>

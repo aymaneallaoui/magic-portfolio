@@ -1,0 +1,61 @@
+---
+title: "Zod-go: TypeScript-Inspired Schema Validation for Go"
+publishedAt: "2024-09-12"
+summary: "A high-performance, fluent validation library for Go that brings the developer experience of TypeScript's Zod to the Go ecosystem with chainable APIs and detailed error reporting."
+images:
+  - "/images/projects/zod-go/cover-01.jpg"
+  - "/images/projects/zod-go/performance-chart.jpg"
+  - "/images/projects/zod-go/architecture-diagram.jpg"
+team:
+  - name: "Aymane Aallaoui"
+    role: "Lead Developer"
+    avatar: "https://avatars.githubusercontent.com/u/111997551?v=4"
+    linkedIn: "https://www.linkedin.com/in/aymane-aallaoui/"
+link: "https://github.com/aymaneallaoui/zod-go"
+---
+
+## Overview
+
+Zod-go is a TypeScript-inspired schema validation library for Go that brings the beloved developer experience of Zod to the Go ecosystem. The project addresses the gap between Go's static typing and runtime validation needs by providing a fluent, chainable API that makes complex data validation both readable and maintainable. With support for nested objects, custom validators, and concurrent processing, Zod-go has gained recognition in the Go community with 23 stars and active development since September 2024.
+
+## Key Features
+
+- **Fluent Chainable API**: Designed for readability and maintainability, allowing developers to chain validation rules in an intuitive manner that mirrors TypeScript's Zod library. This approach makes validation logic self-documenting and easy to understand at first glance.
+
+- **Comprehensive Type Support**: Full support for all Go data types including strings, numbers, booleans, arrays, objects, and maps. Each type comes with specialized validation methods like email validation for strings, range checking for numbers, and uniqueness validation for arrays.
+
+- **Advanced Error Handling**: Rich error reporting system with nested validation details, custom error messages, and JSON serialization support. Errors include field paths, actual values, and context-specific messages that help developers quickly identify and fix validation issues.
+
+- **High-Performance Architecture**: Optimized for performance with zero-allocation validation paths for simple types, efficient memory usage through object pooling, and benchmark results showing 10x+ performance improvement over reflection-based validators.
+
+- **Concurrent Validation**: Built-in support for concurrent validation of large datasets using worker pools, making it suitable for high-throughput applications and batch processing scenarios.
+
+- **Extensible Design**: Easy-to-use custom validator system that allows developers to create domain-specific validation rules while maintaining the fluent API pattern.
+
+## Technologies Used
+
+- **Go 1.21+**: Leveraging modern Go features for optimal performance and developer experience
+- **Concurrent Processing**: Custom worker pool implementation for parallel validation of large datasets
+- **Reflection-Free Core**: Strategic use of interfaces and type assertions instead of reflection for critical paths
+- **GitHub Actions**: Comprehensive CI/CD pipeline with automated testing, benchmarking, and quality checks
+- **golangci-lint**: Strict code quality enforcement with custom ruleset for maintainability
+
+## Challenges and Learnings
+
+The primary challenge was achieving TypeScript Zod's developer experience while maintaining Go's performance characteristics. This required careful API design to balance flexibility with type safety, implementing custom error types that provide detailed context without sacrificing performance, and creating a validation system that works seamlessly with Go's static typing while providing runtime flexibility. The concurrent validation feature presented unique challenges around error collection and resource management, ultimately leading to innovative solutions using channels and worker pools.
+
+## Technical Architecture
+
+The library is built around a core Schema interface that defines validation contracts, with concrete implementations for each data type. The validation engine uses a visitor pattern for complex nested structures and implements a sophisticated error aggregation system. Custom validators integrate seamlessly through a plugin architecture, while the concurrent validation system leverages Go's goroutines and channels for optimal resource utilization.
+
+## Impact and Results
+
+Since its launch, Zod-go has demonstrated significant impact in the Go validation space. Performance benchmarks show consistent 10x+ improvements over traditional reflection-based validators, while maintaining memory efficiency through careful allocation patterns. The library has been adopted by several open-source projects and has received positive feedback for its intuitive API design. Developer adoption metrics show strong engagement with comprehensive documentation and example usage patterns.
+
+## Future Roadmap
+
+Development continues with planned features including JSON Schema export capabilities, integration with popular Go frameworks, advanced transformation utilities, and extended standard validator library. The project maintains active development with regular releases and community contributions, positioning it as a modern solution for Go validation needs.
+
+---
+
+This project showcases expertise in library design, performance optimization, and developer experience engineering, demonstrating the ability to bridge concepts between different programming ecosystems while maintaining language-specific best practices.

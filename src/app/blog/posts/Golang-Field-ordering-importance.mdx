@@ -1,0 +1,120 @@
+---
+title: "Golang Field ordering matters?"
+summary: "Understanding the importance of field ordering in Golang structs for memory optimization and performance."
+publishedAt: "2025-04-20"
+tag: "Golang"
+---
+
+# Greetings, Gophers!
+
+During the initial year of working with Golang, I kept thinking that there must be ordering of fields and I thought why should I be bothered about it? Well, it is only fields, only something wrong could it be, I right? As most of the other novices, I thought it was not worth bothering with. In other words, how vital could it be that certain fields in a struct, would be put in a specific order? Well, a great deal!
+
+<Text>
+  Field ordering is one of the aspects ignored at the beginning but as one
+  proceeds with the tutorial this understanding particularly of how Go works
+  with pointers is understood as being very critical. Actually, it is precisely
+  this order that is critical when it comes to improving application performance
+  especially when working with large data sets or operations that are too heavy
+  on memory. That unfortunate deficiency will be mended in a better
+  understanding why it is so critical with Go field ordering.
+</Text>
+
+## How Does Go Store Structs In Memory?
+
+When placed in memory, structs are represented as a block of consecutive memory, in which all the fields are located one after another according to their definition in a structure. This might seem rather simple, but this kind of linear organization plays some quite significant effects too, particularly in areas such as memory alignment and padding.
+
+## Memory Alignment and Padding
+
+Memory alignment is about how data is placed and accessed from memory. Normally, CPUS can have a bias in terms of where data is fetched in memory, which is referred to as alignment boundaries. For instance, a 32 bit integer should be placed or fetched from the 4th byte address. In cases where there are fields in your struct which are not aligned properly, flicking through the pages, a Go compiler may add padding bytes, and so on. This becomes quite wasteful. For example, look at this struct.
+
+<CodeBlock
+  codes={[
+    {
+      code: `struct example{
+
+a bool // 1 byte
+
+b int32 // 4bytes;
+
+c bool // 1byte
+
+d int64 //8 bytes
+}`,
+language: "go",
+label: "Bad Struct Layout",
+},
+]}
+/>
+
+<Media
+  src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3mol8j36du1hntthwcku.png"
+  alt="figure struct golang"
+  radius="l"
+  aspectRatio="16/9"
+/>
+
+In this improper struct because of alignment rules, the Go compiler might add one or more padding bytes in middle of these fields:
+
+- a is 1 byte but b wants **4 bytes** align hence padding is inserted 3bytes
+- b length is of **4bytes**
+- c length is of **1 byte** but to align d which requires 8 bytes there is 7asing hence padding is introduced.
+- d length is of **8 bytes**
+
+How wood be structural wood, still is **24** in size because of the legs though the content only takes **14** however look at the volume of the actual content plus that of the padding.
+
+## Reordering Fields for Minimum Padding
+
+Field order and structure finding can help to avoid wasting space in the form of negative margin. In another words:
+
+<CodeBlock
+  codes={[
+    {
+      code: `type Example struct {
+
+d int64 // 8 bytes
+
+b int32 // 4 bytes
+
+a bool // 1 byte
+
+c bool // 1 byte
+
+}`,
+language: "go",
+label: "Optimized Struct",
+},
+]}
+/>
+
+<Media
+  src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0r6rralr27fy9gxf391r.png"
+  alt="figure struct golang optimized"
+  radius="l"
+  aspectRatio="16/9"
+/>
+
+In the above optimized struct:
+
+- d occupies **8 bytes**.
+- b occupies **4 bytes**.
+- a and c occupies **1 byte** each without the need of the padding.
+
+This structure is now only **16 bytes** in size and this is better than the former **24 byte** sized structure.
+
+## Why This Matters
+
+As one considers common small-scale applications, he or she will most probably find the amount of memory in use by the application to be no different from the latter. This however is not the case in construction where performance and even memory space are critical consider a system embedded, super fast high frequency trading applications, or applications meant to process tremendous bulk of data these faithful restraint can add up fast. This becomes even more evident when one constructs or operates using many large arrays or concatenated slices of structs. It is not as easy to notice bias or load union when a structure has only a” s few bytes higher capacity. When low memory architecture is mass produced, with the amount of millions of instances to be handled, little by little, this addicted overdose of waste is no longer unheard of.
+
+## Conclusion
+
+<Text>
+  Ordering fields is not only nice from the viewpoint of Golang struct design
+  but also plays an important role in memory optimization. Understanding this
+  aspect of how Go does memory layout for your structs and their pixels enables
+  more effective struct design in practice. Such an insignificant adjustment can
+  cause a considerable performance boost when applications that make heavy use
+  of memory are concerned. When the next opportunity comes for you to be
+  defining a struct in Go, do not just spill those fields around. Instead, spend
+  one minute considering the sequence- you will be thankful to yourself and your
+  application for it in days to come!
+</Text>

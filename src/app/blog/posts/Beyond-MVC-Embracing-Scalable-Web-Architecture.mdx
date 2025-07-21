@@ -1,0 +1,141 @@
+---
+title: "Beyond MVC: Embracing Scalable Web Architecture"
+summary: "MVC isn’t dead—but it isn’t enough either. Learn how DDD and CQRS can address its shortcomings."
+image: "/images/og/beyond-mvc.png"
+publishedAt: "2025-04-09"
+tag: "Design Patterns"
+---
+
+# Introduction
+
+Countless framework designers and programmers have found that MVC (Model-View-Controller) is the most successful way of organizing code in web development. It has been used in various frameworks and projects guiding the arrangement of applications by developers. However, let’s be honest, MVC is not perfect. This means that it contains multiple weaknesses that make coding complex; maintainability can turn into a nightmare and may lead to disappointments among the developers. When we are building a web application, it will be important for us to learn from such weaknesses without completely dismissing MVC. In this blog post, we shall discuss some of these shortcomings associated with MVC.
+
+## The Problem with MVC
+
+According to its proponents, Model should manage data while View should render UI and Controller should act as an intermediary between both of them. At first sight, this separation seems reasonable enough but at practice it results in bulky controllers, thin models and tight coupling components.
+
+### Let's take a look at a typical MVC setup in PHP
+
+<CodeBlock
+  codes={[
+    {
+      language: "php",
+      label: "Classic MVC Example",
+      code: `class PostController {
+    public function index() {
+        $posts = Post::getAll();
+        require('views/posts/index.php');
+    }
+}
+
+class Post {
+public static function getAll() {
+// Fetch posts from the database
+}
+}
+
+// View
+foreach ($posts as $post) {
+    echo "<h2>{$post->title}</h2>";
+echo "<p>{$post->content}</p>";
+}`,
+},
+]}
+/>
+
+<Text>
+  It is the controller’s responsibility in this example to retrieve information
+  from the model and pass it on to the view for rendering. Nonetheless, with the
+  growth of an application, a controller tends to become overloaded with logic
+  for handling various requests thereby adding onto its difficulty of
+  maintainability and testing.
+</Text>
+
+## The Proposal: Going beyond MVC
+
+Instead of blindly following MVC, we could adopt a more elastic architecture that addresses the inadequacies of MVC. One of them involves blending Domain-Driven Design (DDD) with CQRS (Command Query Responsibility Segregation).
+
+<Text>
+  <strong>DDD</strong> puts greater emphasis on what are referred to as
+  domain-driven models rather than the technical frameworks used when building
+  applications. By defining richly structured domains that include distinct
+  entities, value objects, and aggregates, we can confine most business rules
+  within applications.
+</Text>
+
+<Text>
+  <strong>CQRS</strong> helps split our application into read or write
+  operations thus optimizing read and write models independently such that they
+  improve performance and scalability.
+</Text>
+
+### Let's refactor our previous example using DDD and CQRS principles
+
+<CodeBlock
+  codes={[
+    {
+      language: "php",
+      label: "Refactored with DDD & CQRS",
+      code: `// Controller
+class PostController {
+    private $postService;
+
+    public function __construct(PostService $postService) {
+        $this->postService = $postService;
+    }
+
+    public function index() {
+        $posts = $this->postService->getAllPosts();
+        require('views/posts/index.php');
+    }
+
+}
+
+// Service
+class PostService {
+private $postRepository;
+
+    public function __construct(PostRepository $postRepository) {
+        $this->postRepository = $postRepository;
+    }
+
+    public function getAllPosts() {
+        return $this->postRepository->getAll();
+    }
+
+}
+
+// Repository
+class PostRepository {
+public function getAll() {
+// Fetch posts from the database
+}
+}
+
+// View
+foreach ($posts as $post) {
+    echo "<h2>{$post->getTitle()}</h2>";
+echo "<p>{$post->getContent()}</p>";
+}`,
+},
+]}
+/>
+
+<Text>
+  So in this example, we have introduced a service layer responsible for
+  orchestrating business logic and a repository layer responsible for
+  interacting with the data store. This separation of concerns makes our code
+  base more <strong>maintainable</strong> and <strong>testable</strong>.
+</Text>
+
+## Conclusion
+
+<Text>
+  So, the end point of this discussion will be that while MVC has been used as a
+  model for web based applications for years, it is important to realise its
+  inadequacies. By taking lessons from MVC’s flaws as well as embracing other
+  flexible architectures like DDD and CQRS we can come up with web applications
+  that are easier to maintain, scale up and follow clean code and good design
+  principles. Thus let us go beyond MVC and embrace the changing structure of
+  web applications.
+</Text>
