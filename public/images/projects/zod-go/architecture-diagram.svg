@@ -1,0 +1,319 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="primaryGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4F46E5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7C3AED;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="secondaryGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#059669;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0D9488;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="errorGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#DC2626;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#EF4444;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="4" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#F8FAFC"/>
+  
+  <!-- Title -->
+  <text x="600" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#1E293B">
+    Zod-go Architecture Overview
+  </text>
+  
+  <!-- Client Application Layer -->
+  <rect x="50" y="80" width="300" height="100" rx="10" fill="url(#primaryGradient)" filter="url(#shadow)"/>
+  <text x="200" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">
+    Client Application
+  </text>
+  <text x="200" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    Go Applications
+  </text>
+  <text x="200" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    API Servers, Services
+  </text>
+  
+  <!-- Fluent API Layer -->
+  <rect x="450" y="80" width="300" height="100" rx="10" fill="url(#secondaryGradient)" filter="url(#shadow)"/>
+  <text x="600" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">
+    Fluent API Layer
+  </text>
+  <text x="600" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    Chainable Methods
+  </text>
+  <text x="600" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    .Min().Max().Required()
+  </text>
+  
+  <!-- Core Schema Interface -->
+  <rect x="850" y="80" width="300" height="100" rx="10" fill="#64748B" filter="url(#shadow)"/>
+  <text x="1000" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">
+    Core Schema Interface
+  </text>
+  <text x="1000" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    Validate(data interface{})
+  </text>
+  <text x="1000" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    WithMessage() • Custom()
+  </text>
+  
+  <!-- Validator Types -->
+  <g id="validators">
+    <!-- String Validator -->
+    <rect x="50" y="250" width="180" height="120" rx="8" fill="#3B82F6" filter="url(#shadow)"/>
+    <text x="140" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      String Validator
+    </text>
+    <text x="140" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Min/Max Length
+    </text>
+    <text x="140" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Email/URL Format
+    </text>
+    <text x="140" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Regex Pattern
+    </text>
+    <text x="140" y="340" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Required/Optional
+    </text>
+    
+    <!-- Number Validator -->
+    <rect x="250" y="250" width="180" height="120" rx="8" fill="#10B981" filter="url(#shadow)"/>
+    <text x="340" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      Number Validator
+    </text>
+    <text x="340" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Min/Max Value
+    </text>
+    <text x="340" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Integer Check
+    </text>
+    <text x="340" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Positive/Negative
+    </text>
+    <text x="340" y="340" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Required/Optional
+    </text>
+    
+    <!-- Boolean Validator -->
+    <rect x="450" y="250" width="180" height="120" rx="8" fill="#8B5CF6" filter="url(#shadow)"/>
+    <text x="540" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      Boolean Validator
+    </text>
+    <text x="540" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • True/False Check
+    </text>
+    <text x="540" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Required/Optional
+    </text>
+    <text x="540" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Default Values
+    </text>
+    
+    <!-- Array Validator -->
+    <rect x="650" y="250" width="180" height="120" rx="8" fill="#F59E0B" filter="url(#shadow)"/>
+    <text x="740" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      Array Validator
+    </text>
+    <text x="740" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Min/Max Length
+    </text>
+    <text x="740" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Element Validation
+    </text>
+    <text x="740" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Unique Elements
+    </text>
+    <text x="740" y="340" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Nested Schemas
+    </text>
+    
+    <!-- Object Validator -->
+    <rect x="850" y="250" width="180" height="120" rx="8" fill="#EF4444" filter="url(#shadow)"/>
+    <text x="940" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      Object Validator
+    </text>
+    <text x="940" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Property Schemas
+    </text>
+    <text x="940" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Strict Mode
+    </text>
+    <text x="940" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Nested Objects
+    </text>
+    <text x="940" y="340" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Required Fields
+    </text>
+    
+    <!-- Map Validator -->
+    <rect x="1050" y="250" width="150" height="120" rx="8" fill="#06B6D4" filter="url(#shadow)"/>
+    <text x="1125" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      Map Validator
+    </text>
+    <text x="1125" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Key Schema
+    </text>
+    <text x="1125" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Value Schema
+    </text>
+    <text x="1125" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Dynamic Keys
+    </text>
+  </g>
+  
+  <!-- Validation Engine -->
+  <rect x="300" y="420" width="600" height="80" rx="10" fill="#475569" filter="url(#shadow)"/>
+  <text x="600" y="445" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">
+    Validation Engine
+  </text>
+  <text x="400" y="465" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    Sequential Processing
+  </text>
+  <text x="600" y="465" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    Type Checking
+  </text>
+  <text x="800" y="465" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    Rule Evaluation
+  </text>
+  <text x="400" y="485" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    Zero-allocation Paths
+  </text>
+  <text x="600" y="485" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    Visitor Pattern
+  </text>
+  <text x="800" y="485" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    Error Collection
+  </text>
+  
+  <!-- Concurrent Processing -->
+  <rect x="50" y="550" width="250" height="100" rx="10" fill="url(#secondaryGradient)" filter="url(#shadow)"/>
+  <text x="175" y="575" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    Concurrent Processing
+  </text>
+  <text x="175" y="595" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+    Worker Pool Architecture
+  </text>
+  <text x="175" y="610" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+    Batch Validation
+  </text>
+  <text x="175" y="625" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+    Channel-based Communication
+  </text>
+  
+  <!-- Custom Validators -->
+  <rect x="350" y="550" width="250" height="100" rx="10" fill="#7C2D12" filter="url(#shadow)"/>
+  <text x="475" y="575" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    Custom Validators
+  </text>
+  <text x="475" y="595" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+    Plugin Architecture
+  </text>
+  <text x="475" y="610" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+    Domain-specific Rules
+  </text>
+  <text x="475" y="625" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+    Extensible Interface
+  </text>
+  
+  <!-- Error Handling -->
+  <rect x="650" y="550" width="250" height="100" rx="10" fill="url(#errorGradient)" filter="url(#shadow)"/>
+  <text x="775" y="575" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    Error Handling System
+  </text>
+  <text x="775" y="595" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+    Detailed Error Context
+  </text>
+  <text x="775" y="610" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+    Nested Error Reporting
+  </text>
+  <text x="775" y="625" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+    JSON Serialization
+  </text>
+  
+  <!-- Performance Optimizations -->
+  <rect x="950" y="550" width="200" height="100" rx="10" fill="#581C87" filter="url(#shadow)"/>
+  <text x="1050" y="575" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    Performance Layer
+  </text>
+  <text x="1050" y="595" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+    Object Pooling
+  </text>
+  <text x="1050" y="610" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+    Memory Efficiency
+  </text>
+  <text x="1050" y="625" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+    10x+ Performance
+  </text>
+  
+  <!-- Output -->
+  <rect x="400" y="700" width="400" height="60" rx="10" fill="#1F2937" filter="url(#shadow)"/>
+  <text x="600" y="725" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    Validation Results
+  </text>
+  <text x="500" y="745" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+    Success ✓
+  </text>
+  <text x="600" y="745" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+    Detailed Errors
+  </text>
+  <text x="700" y="745" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+    Structured Output
+  </text>
+  
+  <!-- Arrows for data flow -->
+  <!-- Client to Fluent API -->
+  <path d="M 350 130 L 450 130" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Fluent API to Core Schema -->
+  <path d="M 750 130 L 850 130" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Core Schema to Validators -->
+  <path d="M 900 180 L 900 200 L 600 200 L 600 250" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 600 200 L 140 250" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 600 200 L 340 250" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 600 200 L 540 250" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 600 200 L 740 250" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 600 200 L 940 250" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 600 200 L 1125 250" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Validators to Validation Engine -->
+  <path d="M 600 370 L 600 420" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Validation Engine to Processing Components -->
+  <path d="M 400 500 L 175 550" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 600 500 L 475 550" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 700 500 L 775 550" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 800 500 L 1050 550" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Processing Components to Output -->
+  <path d="M 475 650 L 500 700" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 775 650 L 700 700" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#374151"/>
+    </marker>
+  </defs>
+  
+  <!-- Legend -->
+  <g id="legend">
+    <rect x="50" y="720" width="200" height="60" rx="5" fill="white" stroke="#E5E7EB" stroke-width="1"/>
+    <text x="60" y="735" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#374151">
+      Data Flow Direction
+    </text>
+    <line x1="60" y1="745" x2="90" y2="745" stroke="#374151" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <text x="100" y="750" font-family="Arial, sans-serif" font-size="10" fill="#6B7280">
+      Processing Flow
+    </text>
+    <rect x="60" y="755" width="15" height="10" fill="url(#primaryGradient)"/>
+    <text x="80" y="763" font-family="Arial, sans-serif" font-size="10" fill="#6B7280">
+      Core Components
+    </text>
+  </g>
+</svg>
