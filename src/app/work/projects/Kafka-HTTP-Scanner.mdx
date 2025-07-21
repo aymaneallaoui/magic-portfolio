@@ -1,0 +1,85 @@
+---
+title: "Kafka HTTP Scanner: Advanced Web Application Security Vulnerability Detection"
+publishedAt: "2024-05-16"
+summary: "A comprehensive HTTP security vulnerability scanner built in Go that detects 16 different types of web application vulnerabilities with concurrent scanning capabilities and detailed remediation guidance."
+images:
+  - "/images/projects/kafka-http-scanner/terminal.png"
+  - "/images/projects/kafka-http-scanner/dashboard.png"
+team:
+  - name: "Aymane Allaoui"
+    role: "Full Stack Engineer & Developer"
+    avatar: "https://avatars.githubusercontent.com/u/111997551?v=4"
+    linkedIn: "https://www.linkedin.com/in/aymaneallaoui/"
+link: "https://github.com/aymaneallaoui/kafka-http-scanner"
+---
+
+## Overview
+
+The Kafka HTTP Scanner represents a comprehensive approach to web application security testing, designed to automate the detection of critical vulnerabilities that could compromise application security. This advanced scanning tool identifies 16 different categories of security vulnerabilities, ranging from HTTP request smuggling to SQL injection attacks. Built with performance and extensibility in mind, the scanner leverages Go's concurrent processing capabilities to deliver fast, thorough security assessments while providing actionable remediation guidance for discovered vulnerabilities.
+
+## Key Features
+
+- **Comprehensive Vulnerability Detection**: Systematically identifies HTTP smuggling, Cross-Site Scripting (XSS), SQL injection, directory traversal, CORS misconfigurations, and 11 other critical vulnerability types across web applications.
+- **Modular Architecture**: Engineered with a plugin-based system that allows for easy extension with new vulnerability detection modules, making it adaptable to emerging security threats and custom testing requirements.
+- **High-Performance Concurrent Scanning**: Utilizes Go's goroutines and concurrent processing to perform multi-threaded vulnerability assessments, significantly reducing scan times while maintaining accuracy.
+- **Flexible Output Formats**: Supports multiple output formats including structured JSON for integration with security pipelines, human-readable text for manual review, and YAML for configuration management workflows.
+- **Detailed Remediation Guidance**: Provides specific, actionable remediation steps for each discovered vulnerability, including code examples and security best practices to help development teams fix issues effectively.
+- **Production-Ready Reliability**: Features robust error handling, retry mechanisms, and configurable timeouts to ensure stable operation in enterprise environments and CI/CD pipelines.
+
+## Technologies Used
+
+- **Go 1.22.4**: Core language providing excellent performance, built-in concurrency, and strong typing for reliable security tooling.
+- **Cobra CLI Framework**: Professional command-line interface with subcommands, flags, and help generation for intuitive user experience.
+- **Logrus Structured Logging**: Comprehensive logging system with configurable levels and formats for debugging and audit trails.
+- **YAML Configuration Management**: Flexible configuration system allowing users to customize scan parameters, enable/disable modules, and set security policies.
+- **Docker Containerization**: Complete containerization support for consistent deployment across different environments and integration with container orchestration platforms.
+- **GitHub Actions CI/CD**: Automated testing, building, and release pipeline ensuring code quality and seamless deployment processes.
+- **GoReleaser**: Professional release management with cross-platform binary compilation and automated release note generation.
+
+## Security Modules & Coverage
+
+The scanner implements 16 specialized security modules categorized by risk severity:
+
+**High Severity Vulnerabilities**:
+
+- HTTP Request Smuggling detection with protocol-level parsing
+- SSL/TLS security assessment including cipher strength and protocol versions
+- Cross-Site Scripting (XSS) testing with payload injection and DOM analysis
+- SQL Injection detection using time-based and error-based techniques
+- Directory Traversal testing with path manipulation and file access attempts
+
+**Medium Severity Vulnerabilities**:
+
+- HTTP Security Headers analysis for missing protection mechanisms
+- Content Security Policy validation and MIME-type confusion detection
+- HTTP Methods enumeration for dangerous verb support
+- Host Header Attack testing for virtual host confusion
+- CORS Misconfiguration detection for improper cross-origin policies
+- Web Cache Poisoning and Cache Deception vulnerability assessment
+- Open Redirect testing for unvalidated URL redirections
+- Clickjacking protection verification through frame options analysis
+- Cookie Security assessment for missing secure flags and attributes
+
+**Low Severity Issues**:
+
+- Server Information Leakage detection for version disclosure and fingerprinting vectors
+
+## Architecture & Performance
+
+The scanner's architecture prioritizes modularity and performance through several key design decisions. Each vulnerability module operates independently, allowing for selective testing and easy maintenance. The concurrent scanning engine distributes work across multiple goroutines, enabling simultaneous testing of different vulnerability types while respecting target server rate limits. Configuration management through YAML files provides flexibility for different testing scenarios, from development environment scans to comprehensive production security assessments.
+
+## Challenges and Solutions
+
+One of the primary challenges was designing a system that could accurately detect complex vulnerabilities like HTTP request smuggling while minimizing false positives. This required implementing sophisticated request parsing and response analysis algorithms that account for various server behaviors and edge cases. Additionally, ensuring the scanner could operate reliably across different web technologies and frameworks required extensive testing and validation against diverse target applications.
+
+The concurrent scanning implementation presented challenges in managing resource usage and avoiding overwhelming target applications. This was addressed through configurable concurrency limits, intelligent retry mechanisms, and adaptive rate limiting that responds to server performance characteristics.
+
+## Impact and Results
+
+The Kafka HTTP Scanner has proven effective in identifying critical security vulnerabilities that traditional scanners often miss, particularly in the areas of HTTP protocol-level attacks and modern web application vulnerabilities. The detailed remediation guidance has enabled development teams to quickly address discovered issues, reducing the average time from vulnerability identification to resolution.
+
+The modular architecture has facilitated rapid adaptation to new vulnerability types and attack vectors, ensuring the scanner remains current with evolving security threats. Integration with CI/CD pipelines has enabled automated security testing as part of the development workflow, shifting security testing left in the software development lifecycle.
+
+---
+
+This project demonstrates expertise in security engineering, Go development, and building scalable security tools that integrate seamlessly into modern development workflows. The combination of comprehensive vulnerability detection, high performance, and practical remediation guidance makes it a valuable addition to any security toolkit.

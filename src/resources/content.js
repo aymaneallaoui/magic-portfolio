@@ -55,7 +55,7 @@ const home = {
   label: "Home",
   title: `${person.name}'s Portfolio`,
   description: `Portfolio website showcasing my work as a ${person.role}`,
-  headline: <>Building bridges between design and code</>,
+  headline: <>Building scalable software with modern technologies</>,
   featured: {
     display: true,
     title: (
@@ -63,17 +63,14 @@ const home = {
         Recent project: <strong className="ml-4">Zod-Go</strong>
       </>
     ),
-    href: "/work/building-once-ui-a-customizable-design-system",
+    href: "/work/Zod-go-TypeScript-Inspired-Schema-Validation-for-Go",
   },
   subline: (
     <>
-      I'm Aymane, a design engineer at{" "}
-      <Logo
-        icon="/trademarks/wordmark-dark.svg"
-        style={{ display: "inline-flex", top: "0.25em", marginLeft: "-0.25em" }}
-      />
-      , where I craft intuitive
-      <br /> user experiences. After hours, I build my own projects.
+      I'm Aymane, a Full Stack Engineer at <strong>Akera</strong>
+      , where I craft scalable software solutions
+      <br /> with a focus on backend development. Passionate about Go,
+      TypeScript, and building robust infrastructure.
     </>
   ),
 };
@@ -82,7 +79,7 @@ const about = {
   path: "/about",
   label: "About",
   title: `About – ${person.name}`,
-  description: `Meet ${person.name}, ${person.role} from ${person.location}`,
+  description: `Meet ${person.name}, ${person.role} from Morocco`,
   tableOfContent: {
     display: true,
     subItems: false,
@@ -92,17 +89,17 @@ const about = {
   },
   calendar: {
     display: true,
-    link: "https://cal.com",
+    link: "https://cal.com/aymane-aallaoui/30min",
   },
   intro: {
     display: true,
     title: "Introduction",
     description: (
       <>
-        Selene is a Jakarta-based design engineer with a passion for
-        transforming complex challenges into simple, elegant design solutions.
-        Her work spans digital interfaces, interactive experiences, and the
-        convergence of design and technology.
+        Aymane is a Morocco-based Full Stack Engineer with a passion for
+        transforming complex challenges into scalable software solutions. His
+        work spans backend development, DevOps, and the convergence of modern
+        web technologies with robust infrastructure.
       </>
     ),
   },
@@ -116,36 +113,44 @@ const about = {
         role: "Full Stack Engineer",
         achievements: [
           <>
-            Redesigned the UI/UX for the FLY platform, resulting in a 20%
-            increase in user engagement and 30% faster load times.
+            Developing scalable software solutions with a primary focus on
+            backend development using Go, TypeScript, and JavaScript.
           </>,
           <>
-            Spearheaded the integration of AI tools into design workflows,
-            enabling designers to iterate 50% faster.
+            Contributing to robust software infrastructure that aligns with
+            strategic business goals and technical requirements.
           </>,
         ],
-        images: [
-          // optional: leave the array empty if you don't want to display images
-          {
-            src: "/images/projects/project-01/cover-01.jpg",
-            alt: "Once UI Project",
-            width: 16,
-            height: 9,
-          },
-        ],
+        images: [],
       },
       {
-        company: "Creativ3",
-        timeframe: "2018 - 2022",
-        role: "Lead Designer",
+        company: "Valhko",
+        timeframe: "September 2024 - December 2024",
+        role: "Fullstack & DevOps Engineer",
         achievements: [
           <>
-            Developed a design system that unified the brand across multiple
-            platforms, improving design consistency by 40%.
+            Worked on full-stack development and DevOps practices in London,
+            implementing modern development workflows and infrastructure.
           </>,
           <>
-            Led a cross-functional team to launch a new product line,
-            contributing to a 15% increase in overall company revenue.
+            Collaborated with international teams to deliver high-quality
+            software solutions using cloud technologies and automation.
+          </>,
+        ],
+        images: [],
+      },
+      {
+        company: "HARDTEC",
+        timeframe: "May 2024 - August 2024",
+        role: "Full Stack Engineer",
+        achievements: [
+          <>
+            Developed full-stack applications using modern web technologies,
+            contributing to improved system performance and user experience.
+          </>,
+          <>
+            Collaborated with development teams to implement best practices and
+            optimize development workflows.
           </>,
         ],
         images: [],
@@ -157,12 +162,13 @@ const about = {
     title: "Studies",
     institutions: [
       {
-        name: "University of Jakarta",
-        description: <>Studied software engineering.</>,
-      },
-      {
-        name: "Build the Future",
-        description: <>Studied online marketing and personal branding.</>,
+        name: "École Supérieure de Management de Télécommunication et d'Informatique Sup MTI",
+        description: (
+          <>
+            Currently studying Computer Software Engineering (Ingénierie des
+            Systèmes Informatiques), graduating July 2025.
+          </>
+        ),
       },
     ],
   },
@@ -171,40 +177,37 @@ const about = {
     title: "Technical skills",
     skills: [
       {
-        title: "Figma",
+        title: "Backend Development",
         description: (
-          <>Able to prototype in Figma with Once UI with unnatural speed.</>
+          <>
+            Expert in Go (Golang) development, building scalable microservices
+            and APIs with focus on performance and reliability.
+          </>
         ),
         // optional: leave the array empty if you don't want to display images
-        images: [
-          {
-            src: "/images/projects/project-01/cover-02.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-          {
-            src: "/images/projects/project-01/cover-03.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-        ],
+        images: [],
       },
       {
-        title: "Next.js",
+        title: "Full-Stack Development",
         description: (
-          <>Building next gen apps with Next.js + Once UI + Supabase.</>
+          <>
+            Building modern web applications with TypeScript, JavaScript,
+            Next.js, and React. Experienced with both SQL and NoSQL databases.
+          </>
         ),
         // optional: leave the array empty if you don't want to display images
-        images: [
-          {
-            src: "/images/projects/project-01/cover-04.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-        ],
+        images: [],
+      },
+      {
+        title: "DevOps & Cloud",
+        description: (
+          <>
+            AWS certified with experience in cloud infrastructure, Docker, CI/CD
+            pipelines, and automated deployment workflows.
+          </>
+        ),
+        // optional: leave the array empty if you don't want to display images
+        images: [],
       },
     ],
   },
@@ -223,7 +226,7 @@ const work = {
   path: "/work",
   label: "Work",
   title: `Projects – ${person.name}`,
-  description: `dev projects by ${person.name}`,
+  description: `Development projects by ${person.name}`,
   // Create new project pages by adding a new .mdx file to app/blog/posts
   // All projects will be listed on the /home and /work routes
 };
